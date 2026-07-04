@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Farmer Signup{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="text-center text-black">Farmer Signup</h2>
+        <div class="card p-4 shadow-sm">
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="farmer_name">Name</label>
+                    <input type="text" class="form-control" id="farmer_name" name="farmer_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobile_no">Mobile No</label>
+                    <input type="text" class="form-control" id="mobile_no" name="mobile_no" required>
+                </div>
+                <div class="form-group">
+                    <label for="district">District</label>
+                    <input type="text" class="form-control" id="district" name="district" required>
+                </div>
+                <div class="form-group">
+                    <label for="village">Village</label>
+                    <input type="text" class="form-control" id="village" name="village" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" name="state" required>
+                </div>
+                <div class="form-group">
+                    <label for="acres_owned">Acres Owned</label>
+                    <input type="number" class="form-control" id="acres_owned" name="acres_owned" required>
+                </div>
+                <div class="form-group">
+                    <label for="annual_income">Annual Income</label>
+                    <input type="number" class="form-control" id="annual_income" name="annual_income" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

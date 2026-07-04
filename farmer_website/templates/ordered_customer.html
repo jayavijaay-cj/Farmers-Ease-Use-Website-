@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Farmer Orders{% endblock %}
+
+{% block content %}
+<div class="card p-4 shadow-sm">
+    <h2 class="text-center mb-4">Farmer Orders & Transport Coordination</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Customer</th>
+                <th>Quantity</th>
+                <th>Order Date</th>
+                <th>Transport Status</th>
+                <th>Update Transport</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.product.name }}</td>
+                <td>
+                    {{ order.customer.name }}<br>
+                    {{ order.customer.phone_no }}<br>
+                    {{ order.customer.address }}
+                </td>
+                <td>{{ order.ordered_quantity }}</td>
+                <td>{{ order.ordered_date }}</td>
+                <td>{{ order.transport_status }}<br><small>{{ order.transport_notes or 'No notes yet.' }}</small></td>
+                <td>
+                    <form method="POST" action="{{ url_for('update_transport', order_id=order.id) }}">
+                        <div class="form-group mb-2">
+                            <select name="transport_status" class="form-control form-control-sm">
+                                <option {% if order.transport_status == 'Pending' %}selected{% endif %}>Pending</option>
+                                <option {% if order.transport_status == 'Assigned' %}selected{% endif %}>Assigned</option>
+                                <option {% if order.transport_status == 'In Transit' %}selected{% endif %}>In Transit</option>
+                                <option {% if order.transport_status == 'Delivered' %}selected{% endif %}>Delivered</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-2">
+                            <input type="text" name="transport_notes" class="form-control form-control-sm" placeholder="Notes" value="{{ order.transport_notes }}">
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success">Save</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('farmer_dashboard') }}" class="btn btn-outline-primary">Back to Dashboard</a>
+</div>
+{% endblock %}
